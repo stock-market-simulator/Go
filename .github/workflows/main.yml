@@ -10,7 +10,7 @@ on:
   pull_request:
     branches: [ master ]
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.repository_owner }}/trading
+  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/trading
 
 jobs:
   build:
@@ -55,7 +55,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
+          username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
       - name: Docker run
         run: |
