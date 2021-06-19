@@ -11,6 +11,7 @@ on:
     branches: [ master ]
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.actor }}/trading
+  VERSION: ${{ github.sha }}
 
 jobs:
   build:
@@ -19,8 +20,6 @@ jobs:
     steps:
       - name: Check out source code
         uses: actions/checkout@v2
-      - name: Set env
-        run: echo "VERSION=${GITHUB_REF#refs/*/v}" >> $GITHUB_ENV
       - name: Set up docker buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
@@ -44,7 +43,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
+          tags: ${{ env.DOCKER_IMAGE }}:latest
 
   deploy:
     needs: build
@@ -60,4 +59,4 @@ jobs:
       - name: Docker run
         run: |
           docker ps -q --filter "name=${{ env.DOCKER_IMAGE }}" | grep -q . && docker stop ${{ env.DOCKER_IMAGE }} && docker rm -fv ${{ env.DOCKER_IMAGE }}
-          docker run -d -p 8080:5000 --name cicd --restart always ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
+          docker run -d -p 8080:5000 --name cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
