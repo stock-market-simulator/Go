@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/labstack/echo"
 	"github.com/stock-market-simulator/Go/db"
@@ -46,7 +48,7 @@ func main() {
 		if err != nil {
 			return err
 		}
-
+		fmt.Println(os.Getenv("TRADING_USER"))
 		// User 테이블에 있는 데이터 가져오기
 		var user []User
 		result := db.Find(&user)
