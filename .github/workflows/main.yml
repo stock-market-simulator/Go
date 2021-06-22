@@ -55,4 +55,4 @@ jobs:
       # docker run 시 db 접속에 필요한 환경변수 값들을 설정해줘야함 -> -e 태그
         run: |
           docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
-          docker run -d -p 8080:5000 --name go_cicd --restart always -e TRADING_USER=$TRADING_UESR -e TRADING_PASSWORD=$TRADING_PASSWORD -e TRADING_ENDPOINT=$TRADING_ENDPOINT ${{ env.DOCKER_IMAGE }}:latest
+          docker run -d -p 8080:5000 --name go_cicd --restart always -e TRADING_USER=$TRADING_USER -e TRADING_PASSWORD=$TRADING_PASSWORD -e TRADING_ENDPOINT=$TRADING_ENDPOINT ${{ env.DOCKER_IMAGE }}:latest
