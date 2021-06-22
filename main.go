@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 
@@ -49,7 +48,7 @@ func main() {
 		if err != nil {
 			return err
 		}
-		fmt.Println(os.Getenv("TRADING_USER"))
+
 		// User 테이블에 있는 데이터 가져오기
 		var user []User
 		result := db.Find(&user)
@@ -57,8 +56,7 @@ func main() {
 			return result.Error
 		}
 
-		//return c.JSON(http.StatusOK, user)
-		return c.JSON(http.StatusOK, "os:"+os.Getenv("TRADING_USER"))
+		return c.JSON(http.StatusOK, user)
 	})
 
 	e.Logger.Fatal(e.Start(":5000"))
