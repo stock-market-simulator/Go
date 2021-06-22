@@ -22,7 +22,8 @@ func Connect(table string) (*gorm.DB, error) {
 	// local
 	// info := Info{User: "root", Password: "1453", Protocol: "tcp", Endpoint: "localhost", Port: "3306"}
 	fmt.Println(os.Getenv("TRADING_USER"))
-fmt.Println("왜 접속 불가능?")
+		fmt.Println("왜 null이 나오지?")
+	fmt.Println(os.Getenv("TRADING_PASSWORD"))
 	connect_info := fmt.Sprintf("%s:%s@%s(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		info.User, info.Password, info.Protocol, info.Endpoint, info.Port, table,
 	)
