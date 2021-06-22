@@ -23,7 +23,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ env.VERSION }} # runner 설정에서 읽어들일거에요.
+          key: ${{ runner.os }}-buildx-${{ env.VERSION }}
           restore-keys: |
             ${{ runner.os }}-buildx-
       - name: Login to ghcr
@@ -52,6 +52,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
       - name: Docker run
+      # docker run 시 db 접속에 필요한 환경변수 값들을 설정해줘야함 -> -e 태그
         run: |
           docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
-          docker run -d -p 8080:5000 --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
+          docker run -d -p 8080:5000 --name go_cicd --restart always -e TRADING_USER=$TRADING_UESR -e TRADING_PASSWORD=$TRADING_PASSWORD -e TRADING_ENDPOINT=$TRADING_ENDPOINT ${{ env.DOCKER_IMAGE }}:latest
