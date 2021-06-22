@@ -2,7 +2,6 @@ package main
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/labstack/echo"
 	"github.com/stock-market-simulator/Go/db"
@@ -24,25 +23,25 @@ func main() {
 	e := echo.New()
 
 	// db 테스트
-	e.GET("/test/db/create", func(c echo.Context) error {
-		db, err := db.Connect("test")
-		if err != nil {
-			return err
-		}
+	/*
+		e.GET("/test/db/create", func(c echo.Context) error {
+			db, err := db.Connect("test")
+			if err != nil {
+				return err
+			}
 
-		// db 마이그레이션(User란 테이블이 없으면 생성)
-		db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(&(User{}))
-		u := User{
-			Name:     "test",
-			Password: "성공",
-		}
-		// User 테이블에 데이터 추가
-		db.Create(&u)
+			// db 마이그레이션(User란 테이블이 없으면 생성)
+			db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(&(User{}))
+			u := User{
+				Name:     "test",
+				Password: "성공",
+			}
+			// User 테이블에 데이터 추가
+			db.Create(&u)
 
-		//return c.JSON(http.StatusOK, u)
-		return c.JSON(http.StatusOK, "os:"+os.Getenv("TRADING_USER"))
-	})
-
+			return c.JSON(http.StatusOK, u)
+		})
+	*/
 	e.GET("/test/db/read", func(c echo.Context) error {
 		db, err := db.Connect("test")
 		if err != nil {
