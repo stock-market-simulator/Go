@@ -40,7 +40,8 @@ func main() {
 		// User 테이블에 데이터 추가
 		db.Create(&u)
 
-		return c.JSON(http.StatusOK, u)
+		//return c.JSON(http.StatusOK, u)
+		return c.JSON(http.StatusOK, "os:"+os.Getenv("TRADING_USER"))
 	})
 
 	e.GET("/test/db/read", func(c echo.Context) error {
@@ -56,7 +57,8 @@ func main() {
 			return result.Error
 		}
 
-		return c.JSON(http.StatusOK, user)
+		//return c.JSON(http.StatusOK, user)
+		return c.JSON(http.StatusOK, "os:"+os.Getenv("TRADING_USER"))
 	})
 
 	e.Logger.Fatal(e.Start(":5000"))
