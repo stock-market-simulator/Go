@@ -24,6 +24,22 @@ func (a *AppHandler) createDbTestHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, u)
 }
 
+func MakeHandler() *echo.Echo {
+	e := echo.New()
+	handler := &AppHandler{
+		db: model.NewDBHandler("test"),
+	}
+	// db 테스트
+	e.GET("/test/db/read", handler.getDbTestHandler)
+	e.GET("/test/db/create", handler.createDbTestHandler)
+
+	// websocket 테스트
+	//e.GET("/test/ws", chatConnections)
+	//go handleMessages()
+
+	return e
+}
+
 /*
 // websocket 테스트
 var clients = make(map[*websocket.Conn]bool) // 접속된 클라이언트
@@ -81,19 +97,3 @@ func handleMessages() {
 	}
 }
 */
-
-func MakeHandler() *echo.Echo {
-	e := echo.New()
-	handler := &AppHandler{
-		db: model.NewDBHandler("test"),
-	}
-	// db 테스트
-	e.GET("/test/db/read", handler.getDbTestHandler)
-	e.GET("/test/db/create", handler.createDbTestHandler)
-
-	// websocket 테스트
-	//e.GET("/test/ws", chatConnections)
-	//go handleMessages()
-
-	return e
-}
