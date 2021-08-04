@@ -7,5 +7,5 @@ import (
 func main() {
 	e := app.MakeHandler()
 
-	e.Logger.Fatal(e.Start(":5000"))
+	e.Logger.Fatal(e.Start(":5000")) // 포트 설정
 }
