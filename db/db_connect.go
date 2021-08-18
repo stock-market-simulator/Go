@@ -17,6 +17,7 @@ type Info struct {
 }
 
 func Connect(database string) (*gorm.DB, error) {
+	// aws는 로컬, 개발환경에서는 aws ip주소로 입력됨
 	info := Info{User: os.Getenv("TRADING_USER"), Password: os.Getenv("TRADING_PASSWORD"), Protocol: "tcp", Endpoint: os.Getenv("TRADING_ENDPOINT"), Port: "3306"}
 
 	connect_info := fmt.Sprintf("%s:%s@%s(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
