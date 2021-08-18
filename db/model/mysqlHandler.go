@@ -35,7 +35,7 @@ func (g *gormHandler) CreateDbTest() *table.User {
 	g.db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(&(table.User{}))
 	u := table.User{
 		Name:     "test",
-		Password: "성공",
+		Password: "success",
 	}
 	// User 테이블에 데이터 추가
 	g.db.Create(&u)
