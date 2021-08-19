@@ -1,27 +1,15 @@
-package app
+package controller
 
 import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/stock-market-simulator/Go/db/model"
+	model "github.com/stock-market-simulator/Go/service"
 )
 
-// db 테스트
+// db 객체
 type AppHandler struct {
 	db model.DBHandler
-}
-
-func (a *AppHandler) getDbTestHandler(c echo.Context) error {
-	user := a.db.GetDbTest()
-
-	return c.JSON(http.StatusOK, user)
-}
-
-func (a *AppHandler) createDbTestHandler(c echo.Context) error {
-	u := a.db.CreateDbTest()
-
-	return c.JSON(http.StatusOK, u)
 }
 
 func MakeHandler() *echo.Echo {

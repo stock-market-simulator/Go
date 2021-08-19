@@ -1,8 +1,6 @@
 package main
 
-import (
-	"github.com/stock-market-simulator/Go/app"
-)
+import app "github.com/stock-market-simulator/Go/controller"
 
 func main() {
 	e := app.MakeHandler()

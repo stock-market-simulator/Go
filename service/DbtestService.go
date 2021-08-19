@@ -1,24 +1,8 @@
-package model
+package service
 
 import (
-	"github.com/stock-market-simulator/Go/db"
 	"github.com/stock-market-simulator/Go/db/table"
-	"gorm.io/gorm"
 )
-
-type gormHandler struct {
-	db *gorm.DB
-}
-
-func mysqlHandler(database string) DBHandler {
-	db, err := db.Connect(database)
-
-	if err != nil {
-		panic(err)
-	}
-
-	return &gormHandler{db: db}
-}
 
 func (g *gormHandler) GetDbTest() []*table.User {
 	var user []*table.User
