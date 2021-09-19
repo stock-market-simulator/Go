@@ -31,8 +31,8 @@ func Controller() *echo.Echo {
 	})
 
 	// 클라이언트 websocket 연결
-	e.GET("/ws", handler.handleConnections)
-	go handleMessages()
+	// e.GET("/ws", handler.handleConnections)
+	// go handleMessages()
 
 	return e
 }
