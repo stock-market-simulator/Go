@@ -30,9 +30,9 @@ func Controller() *echo.Echo {
 		return c.String(http.StatusOK, "Hello World!")
 	})
 
-	// 클라이언트 websocket 연결
-	e.GET("/ws", handler.handleConnections)
-	go handleMessages()
+	// 클라이언트 websocket 연결 부분
+	// e.GET("/ws", handler.handleConnections)
+	// go handleMessages()
 
 	return e
 }
