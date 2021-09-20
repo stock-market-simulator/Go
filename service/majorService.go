@@ -4,12 +4,12 @@ import (
 	"github.com/stock-market-simulator/Go/db/table"
 )
 
-func (g *gormHandler) GetDbTest() []*table.User {
-	var user []*table.User
-	result := g.db.Find(&user)
+func (g *gormHandler) GetMajorData() []*table.Kospi {
+	var kospi []*table.Kospi
+	result := g.db.Find(&kospi)
 	if result.Error != nil {
 		panic(result.Error)
 	}
 
-	return user
+	return kospi
 }
