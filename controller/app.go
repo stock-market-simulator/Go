@@ -1,8 +1,6 @@
 package controller
 
 import (
-	"net/http"
-
 	"github.com/labstack/echo"
 	model "github.com/stock-market-simulator/Go/service"
 )
@@ -23,12 +21,9 @@ func Controller() *echo.Echo {
 
 	// db 테스트
 	e.GET("/test/db/read", handler.getDbTestHandler)
-	e.GET("/test/db/create", handler.createDbTestHandler)
 
-	// api 테스트
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello World!")
-	})
+	// 코스피 코스닥 지수
+	e.GET("/major", handler.getMajorHandler)
 
 	// 클라이언트 websocket 연결 부분
 	// e.GET("/ws", handler.handleConnections)
