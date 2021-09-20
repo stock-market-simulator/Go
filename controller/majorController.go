@@ -7,7 +7,7 @@ import (
 )
 
 func (a *AppHandler) getMajorHandler(c echo.Context) error {
-	user := a.db.GetMajorData()
+	list := a.db.GetMajorData()
 
-	return c.JSON(http.StatusOK, user)
+	return c.JSON(http.StatusOK, list)
 }

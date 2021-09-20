@@ -8,7 +8,8 @@ import (
 
 // 메소드들이 gormHandler를 리시버로 가지고 있으므로 이 인터페이스도 gormHandler 구조체를 암시적으로 사용 가능
 type DBHandler interface {
-	GetMajorData() []*table.Kospi
+	GetMajorData() majorList
+	//GetMajorData() []*table.Kosdaq
 	GetDbTest() []*table.User
 }
 
