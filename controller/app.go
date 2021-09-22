@@ -21,7 +21,7 @@ func Controller() *echo.Echo {
 
 	// user
 	e.POST("/user", handler.saveUserHandler)
-	e.GET("/bookmark", handler.getUserHandler)
+	e.GET("/bookmark/:token", handler.getUserBookmarkHandler)
 
 	// 코스피 코스닥 지수
 	e.GET("/major", handler.getMajorHandler)

@@ -17,8 +17,9 @@ func (a *AppHandler) saveUserHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
-func (a *AppHandler) getUserHandler(c echo.Context) error {
-	user := a.db.GetUserData()
+func (a *AppHandler) getUserBookmarkHandler(c echo.Context) error {
+	token := c.Param("token")
+	user := a.db.GetUserBookmarkData(token)
 
 	return c.JSON(http.StatusOK, user)
 }
