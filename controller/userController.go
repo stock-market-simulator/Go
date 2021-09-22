@@ -8,13 +8,24 @@ import (
 )
 
 func (a *AppHandler) saveUserHandler(c echo.Context) error {
-	userBody := new(dto.UserDto)
-	if err := c.Bind(userBody); err != nil {
+	body := new(dto.UserDto)
+	if err := c.Bind(body); err != nil {
 		panic(err)
 	}
-	user := a.db.SaveUser(userBody.Token)
+	user := a.db.SaveUser(body.Token)
 
 	return c.JSON(http.StatusOK, user)
+}
+
+func (a *AppHandler) saveBookmark(c echo.Context) error {
+	body := new(dto.BookmarkDto)
+	if err := c.Bind(body); err != nil {
+		panic(err)
+	}
+
+	bookmark := a.db.SaveBookmark(body.Token, body.Name)
+
+	return c.JSON(http.StatusOK, bookmark)
 }
 
 func (a *AppHandler) getUserBookmarkHandler(c echo.Context) error {

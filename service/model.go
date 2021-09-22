@@ -10,6 +10,7 @@ import (
 type DBHandler interface {
 	GetMajorData() majorList
 	SaveUser(string) *table.User
+	SaveBookmark(string, string) *table.Bookmark
 	GetUserBookmarkData(string) []*table.User
 }
 
