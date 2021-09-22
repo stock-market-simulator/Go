@@ -19,8 +19,9 @@ func Controller() *echo.Echo {
 		db: model.NewDBHandler("trading"), // DBHandler의 메소드를 가지고 있음
 	}
 
-	// db 테스트
-	e.GET("/test/db/read", handler.getDbTestHandler)
+	// user
+	e.POST("/user", handler.saveUserHandler)
+	e.GET("/bookmark", handler.getUserHandler)
 
 	// 코스피 코스닥 지수
 	e.GET("/major", handler.getMajorHandler)
