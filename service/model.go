@@ -11,7 +11,7 @@ type DBHandler interface {
 	GetMajorData() majorList
 	SaveUser(string) *table.User
 	SaveBookmark(string, string) *table.Bookmark
-	GetUserBookmarkData(string) []*table.User
+	GetUserBookmarkData(string) []table.Bookmark
 }
 
 // gormHandler db에 직접 접근하므로 소문자로 사용해 private으로 보호하고 외부에서는 DBHandler를 이용해 gormHandler를 리시버로 가지고 있는 메소드에 접근(약간 getter 느낌??)
