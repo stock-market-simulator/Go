@@ -1,7 +1,6 @@
 package service
 
 import (
-	"strconv"
 	"time"
 
 	"github.com/stock-market-simulator/Go/db/table"
@@ -17,8 +16,8 @@ func (g *gormHandler) GetMajorData() majorList {
 	year := now.Year() - 1
 	month := int(now.Month())
 	day := now.Day()
-	start := convert(year, month-2, day)
-	end := convert(year, month, day)
+	start := convert(year, month-2, day, "/")
+	end := convert(year, month, day, "/")
 
 	var kospi []*table.Kospi
 	var kosdaq []*table.Kosdaq
@@ -36,20 +35,4 @@ func (g *gormHandler) GetMajorData() majorList {
 	result := majorList{kospi, kosdaq}
 
 	return result
-}
-
-func convert(year int, month int, day int) string {
-	if month < 1 {
-		year -= 1
-		month = 12 - month
-	}
-	return toString(year) + "/" + toString(month) + "/" + toString(day)
-}
-
-func toString(num int) string {
-	if num < 10 {
-		return "0" + strconv.Itoa(num)
-	} else {
-		return strconv.Itoa(num)
-	}
 }

@@ -4,7 +4,7 @@ type UserDto struct {
 	Token string `json:"token"`
 }
 
-type BookmarkDto struct {
+type BookmarkRequestDto struct {
 	Token string `json:"token"`
 	Name  string `json:"name"`
 }

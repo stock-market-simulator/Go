@@ -18,7 +18,7 @@ func (a *AppHandler) saveUserHandler(c echo.Context) error {
 }
 
 func (a *AppHandler) saveBookmark(c echo.Context) error {
-	body := new(dto.BookmarkDto)
+	body := new(dto.BookmarkRequestDto)
 	if err := c.Bind(body); err != nil {
 		panic(err)
 	}
