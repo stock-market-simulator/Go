@@ -23,8 +23,10 @@ func (g *gormHandler) SaveBookmark(token string, name string) *table.Bookmark {
 	var user *table.User
 	g.db.Debug().Where("Token=?", token).Find(&user)
 
-	// code는 db에서 name을 통해 알아낼 수 있다.
-	bookmark := &table.Bookmark{Code: "003545", Name: name, UserID: user.UserID}
+	stockInfo := table.StockInfo{}
+	g.db.Debug().Where("name=?", name).Find(&stockInfo)
+
+	bookmark := &table.Bookmark{Code: stockInfo.Code, Name: name, UserID: user.UserID}
 
 	err := g.db.Debug().Model(user).Association("Bookmarks").Append(bookmark)
 	if err != nil {
@@ -50,13 +52,14 @@ func (g *gormHandler) GetUserBookmarkData(token string) []dto.BookmarkResponseDt
 		var bookmarkInfo dto.BookmarkResponseDto
 		bookmarkInfo.Name = v.Name
 
-		stockInfo := table.Stock{}
+		currentStock := table.Stock{}
+		previousStock := table.Stock{}
 
-		g.db.Debug().Table("stock_"+v.Code).Where("data=?", current).Find(&stockInfo)
-		bookmarkInfo.CurrentPrice = stockInfo.MarketPrice
+		g.db.Debug().Table("stock_"+v.Code).Where("data=?", current).Find(&currentStock)
+		bookmarkInfo.CurrentPrice = currentStock.MarketPrice
 
-		g.db.Debug().Table("stock_"+v.Code).Where("data=?", previous).Find(&stockInfo)
-		bookmarkInfo.PreviousPrice = stockInfo.MarketPrice
+		g.db.Debug().Table("stock_"+v.Code).Where("data=?", previous).Find(&previousStock)
+		bookmarkInfo.PreviousPrice = previousStock.MarketPrice
 
 		res = append(res, bookmarkInfo)
 	}
