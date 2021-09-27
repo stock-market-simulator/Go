@@ -7,16 +7,21 @@ import (
 	"github.com/stock-market-simulator/Go/db/table"
 )
 
-func (g *gormHandler) SaveUser(token string) *table.User {
+func (g *gormHandler) SaveUser(token string) (*table.User, bool) {
 	user := &table.User{Token: token}
+	var checkUser *table.User
+	g.db.Debug().Where("Token=?", token).Find(&checkUser)
 
+	if checkUser.UserID != 0 {
+		return checkUser, false
+	}
 	g.db.AutoMigrate(&table.User{}, &table.Bookmark{})
 	err := g.db.Debug().Model(&table.User{}).Create(user).Error
 	if err != nil {
 		panic(err)
 	}
 
-	return user
+	return user, true
 }
 
 func (g *gormHandler) SaveBookmark(token string, name string) *table.Bookmark {

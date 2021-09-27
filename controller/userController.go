@@ -12,7 +12,11 @@ func (a *AppHandler) saveUserHandler(c echo.Context) error {
 	if err := c.Bind(body); err != nil {
 		panic(err)
 	}
-	user := a.db.SaveUser(body.Token)
+	user, check := a.db.SaveUser(body.Token)
+
+	if !check {
+		return c.JSON(http.StatusInternalServerError, "이미 존재하는 토큰입니다.")
+	}
 
 	return c.JSON(http.StatusOK, user)
 }
