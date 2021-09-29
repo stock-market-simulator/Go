@@ -41,7 +41,7 @@ func (g *gormHandler) SaveBookmark(token string, name string) *table.Bookmark {
 	return bookmark
 }
 
-func (g *gormHandler) GetUserBookmarkData(token string) []dto.BookmarkResponseDto {
+func (g *gormHandler) GetUserBookmarkData(token string) dto.BookmarkResponseDto {
 	user := table.User{}
 	g.db.Debug().Where("Token=?", token).Preload("Bookmarks").Find(&user)
 
@@ -52,9 +52,9 @@ func (g *gormHandler) GetUserBookmarkData(token string) []dto.BookmarkResponseDt
 	current := convert(year, month, day, "")
 	previous := convert(year, month, day-1, "")
 
-	var res []dto.BookmarkResponseDto
+	var res []dto.BookmarkInfo
 	for _, v := range user.Bookmarks {
-		var bookmarkInfo dto.BookmarkResponseDto
+		var bookmarkInfo dto.BookmarkInfo
 		bookmarkInfo.Name = v.Name
 
 		currentStock := table.Stock{}
@@ -69,5 +69,5 @@ func (g *gormHandler) GetUserBookmarkData(token string) []dto.BookmarkResponseDt
 		res = append(res, bookmarkInfo)
 	}
 
-	return res
+	return dto.BookmarkResponseDto{BookMark: res}
 }
